@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajouter un Livre</title>
+    <title>Modifier un Livre</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
@@ -13,23 +13,29 @@
         <div class="col-md-6">
             <div class="card shadow">
                 <div class="card-header text-center">
-                    <h2>Ajouter un Nouveau Livre</h2>
+                    <h2>Modifier le Livre : ${requestScope.livre.titre}</h2>
                 </div>
                 <div class="card-body">
-                    <form action="addLivre" method="post">
+                    <form action="editLivre" method="post">
+                        <input type="hidden" name="_method" value="PUT" />
+                        <input type="hidden" name="id" value="${requestScope.livre.id}">
+
                         <div class="mb-3">
                             <label for="titre" class="form-label">Titre</label>
-                            <input type="text" id="titre" name="titre" class="form-control" required>
+                            <input type="text" value="${requestScope.livre.titre}" id="titre" name="titre" class="form-control" required>
                         </div>
+
                         <div class="mb-3">
                             <label for="auteur" class="form-label">Auteur</label>
-                            <input type="text" id="auteur" name="auteur" class="form-control" required>
+                            <input type="text" value="${requestScope.livre.auteur}" id="auteur" name="auteur" class="form-control" required>
                         </div>
+
                         <div class="mb-3">
                             <label for="genre" class="form-label">Genre</label>
-                            <input type="text" id="genre" name="genre" class="form-control" required>
+                            <input type="text" value="${requestScope.livre.genre}" id="genre" name="genre" class="form-control" required>
                         </div>
-                        <button type="submit" class="btn btn-success w-100">Ajouter</button>
+
+                        <button type="submit" class="btn btn-warning w-100">Modifier</button>
                     </form>
                 </div>
             </div>

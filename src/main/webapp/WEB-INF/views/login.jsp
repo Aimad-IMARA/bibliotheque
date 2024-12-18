@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ajouter un Livre</title>
+    <title>Connexion Administrateur</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="bg-light">
@@ -13,24 +13,25 @@
         <div class="col-md-6">
             <div class="card shadow">
                 <div class="card-header text-center">
-                    <h2>Ajouter un Nouveau Livre</h2>
+                    <h2>Connexion Administrateur</h2>
                 </div>
                 <div class="card-body">
-                    <form action="addLivre" method="post">
+                    <form action="login" method="POST">
                         <div class="mb-3">
-                            <label for="titre" class="form-label">Titre</label>
-                            <input type="text" id="titre" name="titre" class="form-control" required>
+                            <label for="username" class="form-label">Nom d'utilisateur</label>
+                            <input type="text" id="username" name="username" class="form-control" required>
                         </div>
                         <div class="mb-3">
-                            <label for="auteur" class="form-label">Auteur</label>
-                            <input type="text" id="auteur" name="auteur" class="form-control" required>
+                            <label for="password" class="form-label">Mot de passe</label>
+                            <input type="password" id="password" name="password" class="form-control" required>
                         </div>
-                        <div class="mb-3">
-                            <label for="genre" class="form-label">Genre</label>
-                            <input type="text" id="genre" name="genre" class="form-control" required>
-                        </div>
-                        <button type="submit" class="btn btn-success w-100">Ajouter</button>
+                        <button type="submit" class="btn btn-primary w-100">Se connecter</button>
                     </form>
+                    <c:if test="${not empty error}">
+                        <div class="mt-3">
+                            <p class="text-danger text-center">${error}</p>
+                        </div>
+                    </c:if>
                 </div>
             </div>
         </div>

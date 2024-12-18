@@ -54,4 +54,9 @@ public class Livre {
     public void setDisponible(boolean disponible) {
         this.disponible = disponible;
     }
+
+    public int getId() {
+        return id;
+    }
+
 }

@@ -30,4 +30,37 @@ public class LivreDAO {
             em.close();
         }
     }
+    public Livre findById(Integer id) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            return em.find(Livre.class, id);
+        } finally {
+            em.close();
+        }
+    }
+
+    public void update(Livre livre) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            em.merge(livre); // merge updates the entity
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+    }
+
+    public void delete(Integer id) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            em.getTransaction().begin();
+            Livre livre = em.find(Livre.class, id);
+            if (livre != null) {
+                em.remove(livre);
+            }
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+    }
 }
