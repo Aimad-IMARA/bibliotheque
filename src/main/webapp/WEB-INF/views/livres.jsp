@@ -14,7 +14,10 @@
     <h1 class="text-center mb-4">Gestion des Livres</h1>
     <div class="d-flex justify-content-between align-items-center mb-4">
         <a href="${pageContext.request.contextPath}/admin/livres/addLivre" class="btn btn-success">
-            <i class="bi bi-plus-circle"></i> Ajouter un Nouveau Livre
+            <i class="bi bi-plus-circle"></i>
+        </a>
+        <a href="${pageContext.request.contextPath}/admin/emprunts" class="btn btn-primary">
+            <i class="bi bi-book"></i> Liste des emprunts
         </a>
     </div>
     <table class="table table-bordered table-hover">
@@ -47,15 +50,21 @@
                         </td>
                         <td class="text-center">
                             <a href="${pageContext.request.contextPath}/admin/livres/edit?id=${livre.id}" class="btn btn-primary btn-sm">
-                                <i class="bi bi-pencil"></i> Modifier
+                                <i class="bi bi-pencil"></i>
                             </a>
                             <a href="${pageContext.request.contextPath}/admin/livres/delete?id=${livre.id}" class="btn btn-danger btn-sm">
-                                <i class="bi bi-trash"></i> Supprimer
+                                <i class="bi bi-trash"></i>
                             </a>
                             <c:if test="${livre.disponible}">
-                                <a href="${pageContext.request.contextPath}/admin/livres/emprunter?id=${livre.id}" class="btn btn-warning btn-sm">
-                                    <i class="bi bi-arrow-right-circle"></i> Emprunter
-                                </a>
+                                <!-- Button to Open the Modal -->
+                                <button
+                                        class="btn btn-warning btn-sm"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#empruntModal"
+                                        data-livre-id="${livre.id}"
+                                        data-livre-titre="${livre.titre}">
+                                    <i class="bi bi-arrow-right-circle"></i>
+                                </button>
                             </c:if>
                         </td>
                     </tr>
@@ -71,6 +80,53 @@
     </table>
 </div>
 
+<div class="modal fade" id="empruntModal" tabindex="-1" aria-labelledby="empruntModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="${pageContext.request.contextPath}/admin/emprunts/addEmprunt" method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="empruntModalLabel">Ajouter un Emprunt</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="livreId" id="livreId">
+                    <div class="mb-3">
+                        <label class="form-label">Livre</label>
+                        <label class="form-control" id="livre-name"></label>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="numeroTel" class="form-label">Numéro de Téléphone</label>
+                        <input type="text" class="form-control" id="numeroTel" name="numeroTel" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="dateRetour" class="form-label">Date de Retour</label>
+                        <input type="date" class="form-control" id="dateRetour" name="dateRetour" required>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                    <button type="submit" class="btn btn-primary">Ajouter</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    const empruntModal = document.getElementById('empruntModal');
+    empruntModal.addEventListener('show.bs.modal', function (event) {
+        const button = event.relatedTarget;
+        const livreId = button.getAttribute('data-livre-id');
+        document.getElementById('livre-name').textContent = button.getAttribute('data-livre-titre')
+        const livreIdInput = empruntModal.querySelector('#livreId');
+
+        livreIdInput.value = livreId;
+    });
+</script>
 </body>
 </html>
