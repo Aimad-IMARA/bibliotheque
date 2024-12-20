@@ -63,4 +63,15 @@ public class LivreDAO {
             em.close();
         }
     }
+
+    public List<Livre> searchByTitle(String title) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            return em.createQuery("SELECT l FROM Livre l WHERE LOWER(l.titre) LIKE :title", Livre.class)
+                    .setParameter("title", "%" + title.toLowerCase() + "%")
+                    .getResultList();
+        } finally {
+            em.close();
+        }
+    }
 }

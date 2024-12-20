@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 @WebServlet(name = "emprunts", value = "/admin/emprunts/*")
 public class EmpruntServlet extends HttpServlet {
@@ -23,12 +24,14 @@ public class EmpruntServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String pathInfo = request.getPathInfo();
-        if ( pathInfo == null || pathInfo.equals("/")) {
+        if (pathInfo == null || pathInfo.equals("/")) {
             listEmprunts(request, response);
         } else if (pathInfo.equals("/addEmprunt")) {
             List<Livre> livres = livreService.getAllLivres();
             request.setAttribute("livres", livres);
             request.getRequestDispatcher("/WEB-INF/views/addEmprunt.jsp").forward(request, response);
+        } else if (pathInfo.equals("/retourner")) {
+            doPut(request, response);
         }
     }
 

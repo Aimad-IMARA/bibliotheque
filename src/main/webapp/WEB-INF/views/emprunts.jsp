@@ -12,14 +12,18 @@
 <body class="bg-light">
 <div class="container mt-5">
     <h1 class="text-center mb-4">Liste des emprunts</h1>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <a href="${pageContext.request.contextPath}/admin/livres" class="btn btn-success">
+            <i class="bi bi-collection-fill"></i> Liste des livres
+        </a>
+    </div>
     <table class="table table-bordered table-hover">
         <thead class="table-dark text-center">
         <tr>
-            <th>ID</th>
             <th>Email</th>
-            <th>Numéro de téléphone</th>
-            <th>Date d'emprunt</th>
-            <th>Date de retour</th>
+            <th>Téléphone</th>
+            <th>Date emprunt</th>
+            <th>Date retour</th>
             <th>Livre</th>
             <th>Statut</th>
             <th>Action</th>
@@ -28,7 +32,6 @@
         <tbody>
         <c:forEach var="emprunt" items="${requestScope.emprunts}">
             <tr>
-                <td>${emprunt.id}</td>
                 <td>${emprunt.email}</td>
                 <td>${emprunt.numeroTel}</td>
                 <td>${emprunt.dateEmprunt}</td>

@@ -12,12 +12,21 @@
 <body class="bg-light">
 <div class="container mt-5">
     <h1 class="text-center mb-4">Gestion des Livres</h1>
+
     <div class="d-flex justify-content-between align-items-center mb-4">
         <a href="${pageContext.request.contextPath}/admin/livres/addLivre" class="btn btn-success">
             <i class="bi bi-plus-circle"></i>
         </a>
-        <a href="${pageContext.request.contextPath}/admin/emprunts" class="btn btn-primary">
-            <i class="bi bi-book"></i> Liste des emprunts
+        <form method="get" action="${pageContext.request.contextPath}/admin/livres" class="w-75">
+            <div class="input-group">
+                <input type="text" class="form-control" name="search" placeholder="Rechercher un livre par nom" value="${param.search}">
+                <button class="btn btn-light border" type="submit">
+                    <i class="bi bi-search"></i>
+                </button>
+            </div>
+        </form>
+        <a href="${pageContext.request.contextPath}/admin/emprunts" class="btn btn-dark">
+            <i class="bi bi-journal-arrow-up"></i> <span>Les emprunts</span>
         </a>
     </div>
     <table class="table table-bordered table-hover">
@@ -26,7 +35,7 @@
             <th>Titre</th>
             <th>Auteur</th>
             <th>Genre</th>
-            <th>Disponible</th>
+            <th>Statut</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -63,7 +72,7 @@
                                         data-bs-target="#empruntModal"
                                         data-livre-id="${livre.id}"
                                         data-livre-titre="${livre.titre}">
-                                    <i class="bi bi-arrow-right-circle"></i>
+                                    <i class="bi bi bi-journal-arrow-up"></i>
                                 </button>
                             </c:if>
                         </td>

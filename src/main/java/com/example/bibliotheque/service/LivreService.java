@@ -24,4 +24,8 @@ public class LivreService {
     public void deleteLivre(Integer id) {
         livreDAO.delete(id);
     }
+
+    public List<Livre> searchByTitle(String title) {
+        return livreDAO.searchByTitle(title);
+    }
 }

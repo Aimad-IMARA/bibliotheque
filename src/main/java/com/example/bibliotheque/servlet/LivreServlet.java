@@ -76,7 +76,13 @@ public class LivreServlet extends HttpServlet {
     }
 
     private void listLivres(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        List<Livre> livres = livreService.getAllLivres();
+        String search = request.getParameter("search");
+        List<Livre> livres;
+        if (search != null && !search.isEmpty()) {
+            livres = livreService.searchByTitle(search);
+        }else{
+            livres = livreService.getAllLivres();
+        }
         request.setAttribute("livres", livres);
         request.getRequestDispatcher("/WEB-INF/views/livres.jsp").forward(request, response);
     }
